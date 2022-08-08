@@ -20,12 +20,13 @@ app.listen(port, () => {
 EOF
 
 npm install express
-npm install pm2 -g
+sudo npm install pm2 --global
 
 
 sudo amazon-linux-extras install nginx1
 sudo rm /etc/nginx/default.d/custom.conf
-sudo cat >>  /etc/nginx/default.d/custom.conf << EOF
+sudo  su
+cat >> /etc/nginx/default.d/custom.conf << EOF
  location / {
         # root   html;
         # index  index.html;
@@ -39,5 +40,6 @@ sudo cat >>  /etc/nginx/default.d/custom.conf << EOF
     }
 EOF
 
-sudo service nginx restart
+service nginx restart
+su ec2-user
 pm2 start server.js
